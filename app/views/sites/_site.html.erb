@@ -1,0 +1,28 @@
+<div id="<%= dom_id(site) %>" style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; background-color: #fff;">
+  <div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <% if site.up? %>
+        <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #22c55e;" title="Available"></span>
+      <% elsif site.down? %>
+        <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #ef4444;" title="Unavailable"></span>
+      <% else %>
+        <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #94a3b8;" title="Waiting for first measurement."></span>
+      <% end %>
+
+      <strong style="font-size: 1rem;"><%= site.name %></strong>
+      <span style="color: #64748b; font-size: 0.9rem;">(<%= site.url %>)</span>
+    </div>
+
+    <div style="margin-top: 6px; font-size: 0.85rem; color: #475569;">
+      Last checked: <%= site.last_checked_at ? site.last_checked_at.strftime("%H:%M:%S") : "Not yet taken" %>
+      <% if site.check_results.any? %>
+        | Ping: <strong><%= site.check_results.last.response_time_ms %> ms</strong>
+        | HTTP code: <strong><%= site.check_results.last.status_code %></strong>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <%= button_to "Deletus magnus", site_path(site), method: :delete, style: "background-color: #fee2e2; color: #dc2626; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;" %>
+  </div>
+</div>

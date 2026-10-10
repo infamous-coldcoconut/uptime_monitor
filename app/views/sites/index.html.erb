@@ -1,0 +1,54 @@
+<main style="max-width: 800px; margin: 40px auto; font-family: system-ui, sans-serif; color: #0f172a; padding: 0 16px;">
+  <!--dívá se na sites jestli nějaké změny -->
+  <%= turbo_stream_from "sites" %> 
+  <header style="margin-bottom: 32px; border-bottom: 2px solid #f1f5f9; padding-bottom: 16px;">
+    <h1 style="margin: 0; font-size: 1.8rem;">Uptime Monitor</h1>
+    <p style="margin: 4px 0 0 0; color: #64748b;">Web service availability monitor</p>
+  </header>
+
+  <% if notice.present? %>
+    <div style="padding: 12px; background-color: #dcfce7; color: #166534; border-radius: 6px; margin-bottom: 20px;">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <!-- Formulář pro přidání nového webu -->
+  <section style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 32px;">
+    <h2 style="margin-top: 0; font-size: 1.2rem;">Add new web</h2>
+
+    <%= form_with model: @site, local: true do |f| %>
+      <% if @site.errors.any? %>
+        <div style="color: #dc2626; margin-bottom: 12px; font-size: 0.9rem;">
+          <% @site.errors.full_messages.each do |msg| %>
+            <div>• <%= msg %></div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+        <div>
+          <%= f.label :name, "Service name", style: "display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;" %>
+          <%= f.text_field :name, placeholder: "např. GitHub", style: "width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;" %>
+        </div>
+
+        <div>
+          <%= f.label :url, "URL adress", style: "display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;" %>
+          <%= f.text_field :url, placeholder: "https://github.com", style: "width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;" %>
+        </div>
+      </div>
+
+      <%= f.submit "Add", style: "background-color: #2563eb; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; font-weight: 600; cursor: pointer;" %>
+    <% end %>
+  </section>
+
+  <!-- Seznam sledovaných webů -->
+  <section>
+    <h2 style="font-size: 1.2rem; margin-bottom: 16px;">Monitored websites (<%= @sites.count %>)</h2>
+    
+    <% if @sites.any? %>
+      <%= render @sites %>
+    <% else %>
+      <p style="color: #64748b;">You aren't tracking any websites yet. Add the first one using the form above.</p>
+    <% end %>
+  </section>
+</main>

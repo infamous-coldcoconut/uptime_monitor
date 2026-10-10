@@ -1,0 +1,11 @@
+production:
+    schedule_pings:
+        class: SchedulePingsJob
+        queue: default
+        schedule: every minute
+
+development:
+    schedule_pings:
+        class: SchedulePingsJob
+        queue: default
+        schedule: every minute
