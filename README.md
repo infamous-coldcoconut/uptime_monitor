@@ -1,24 +1,10 @@
-# README
+Create .env file
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+add DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, SOLID_QUEUE_IN_PUMA
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+for example:
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=admin
+SOLID_QUEUE_IN_PUMA=true
